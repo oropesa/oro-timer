@@ -1,0 +1,5 @@
+.idea/*
+.gitignore
+tests/*
+*.test.js
+tmp.js

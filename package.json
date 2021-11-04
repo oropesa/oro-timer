@@ -1,0 +1,26 @@
+{
+  "name": "oro-timer",
+  "version": "1.0.0",
+  "description": "OroTimer is a class to check the performance time of the code.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "timer",
+    "performance"
+  ],
+  "author": "Carlos Oropesa <carlos@oropensando.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oropesa/oro-timer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oropesa/oro-timer/issues"
+  },
+  "homepage": "https://github.com/oropesa/oro-timer#readme",
+  "devDependencies": {
+    "jest": "^27.0.6"
+  }
+}
