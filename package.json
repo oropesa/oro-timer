@@ -1,6 +1,6 @@
 {
   "name": "oro-timer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "OroTimer is a class to check the performance time of the code.",
   "main": "index.js",
   "scripts": {
