@@ -1,7 +1,7 @@
 {
   "name": "oro-timer",
-  "version": "1.0.1",
-  "description": "OroTimer is a class to check the performance time of the code.",
+  "version": "1.1.0",
+  "description": "OTimer is a class to check the performance time of the code.",
   "main": "index.js",
   "scripts": {
     "test": "jest"
@@ -21,6 +21,11 @@
   },
   "homepage": "https://github.com/oropesa/oro-timer#readme",
   "devDependencies": {
-    "jest": "^27.0.6"
+    "@babel/core": "^7.21.5",
+    "@babel/preset-env": "^7.21.5",
+    "@babel/preset-typescript": "^7.21.5",
+    "@types/jest": "^29.5.1",
+    "babel-jest": "^29.5.0",
+    "jest": "^29.5.0"
   }
 }

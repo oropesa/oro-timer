@@ -1,21 +1,22 @@
-const OTimer = require( '../index' );
+import OTimer, { OTimerTick, OTimerStep } from '../index';
+
 const { performance } = require( 'perf_hooks' );
 
-function sleep( ms ) {
+function sleep( ms: number ): Promise<void> {
     return new Promise( resolve => setTimeout( resolve, ms ) );
 }
 
-function fnType( obj ) {
+function fnType( obj: any ): string {
     return ({}).toString.call( obj ).match( /\s([a-zA-Z]+)/ )[ 1 ].toLowerCase();
 }
 
-describe( 'init OTimer', () => {
+describe( 'ts init OTimer', () => {
     test( 'new OTimer( undefined )', () => {
-        const timeBefore = performance.now();
-        const oTimer = new OTimer();
-        const timeAfter = performance.now();
+        const timeBefore: number = performance.now();
+        const oTimer: OTimer = new OTimer();
+        const timeAfter: number = performance.now();
 
-        const objPerformance = oTimer.getPerformance();
+        const objPerformance: OTimerTick[] = oTimer.getPerformance();
 
         expect( fnType( objPerformance ) ).toBe( 'array' );
         expect( objPerformance.length ).toBe( 1 );
@@ -25,13 +26,13 @@ describe( 'init OTimer', () => {
     } );
 
     test( 'new OTimer( label )', () => {
-        const timeBefore = performance.now();
-        const oTimer = new OTimer( 'start' );
-        const timeAfter = performance.now();
-        const times = oTimer.getTimes();
+        const timeBefore: number = performance.now();
+        const oTimer: OTimer = new OTimer( 'start' );
+        const timeAfter: number = performance.now();
+        oTimer.getTimes();
         const timeEnd = performance.now();
 
-        const objPerformance = oTimer.getPerformance();
+        const objPerformance: OTimerTick[] = oTimer.getPerformance();
 
         expect( fnType( objPerformance ) ).toBe( 'array' );
         expect( objPerformance.length ).toBe( 2 );
@@ -42,96 +43,12 @@ describe( 'init OTimer', () => {
         expect( objPerformance[ 1 ].tick ).toBeGreaterThan( timeAfter );
         expect( objPerformance[ 1 ].tick ).toBeLessThan( timeEnd );
     } );
-
-    test( 'new OTimer( wrong label number )', () => {
-        const timeBefore = performance.now();
-        const oTimer = new OTimer( 0 );
-        const timeAfter = performance.now();
-
-        const objPerformance = oTimer.getPerformance();
-
-        expect( fnType( objPerformance ) ).toBe( 'array' );
-        expect( objPerformance.length ).toBe( 1 );
-        expect( objPerformance[ 0 ].label ).toBe( '0' );
-        expect( objPerformance[ 0 ].tick ).toBeGreaterThan( timeBefore );
-        expect( objPerformance[ 0 ].tick ).toBeLessThan( timeAfter );
-    } );
-
-    test( 'new OTimer( wrong label null )', () => {
-        const timeBefore = performance.now();
-        const oTimer = new OTimer( null );
-        const timeAfter = performance.now();
-
-        const objPerformance = oTimer.getPerformance();
-
-        expect( fnType( objPerformance ) ).toBe( 'array' );
-        expect( objPerformance.length ).toBe( 1 );
-        expect( objPerformance[ 0 ].label ).toBe( '' );
-        expect( objPerformance[ 0 ].tick ).toBeGreaterThan( timeBefore );
-        expect( objPerformance[ 0 ].tick ).toBeLessThan( timeAfter );
-    } );
-
-    test( 'new OTimer( wrong label bool )', () => {
-        const timeBefore = performance.now();
-        const oTimer = new OTimer( false );
-        const timeAfter = performance.now();
-
-        const objPerformance = oTimer.getPerformance();
-
-        expect( fnType( objPerformance ) ).toBe( 'array' );
-        expect( objPerformance.length ).toBe( 1 );
-        expect( objPerformance[ 0 ].label ).toBe( 'false' );
-        expect( objPerformance[ 0 ].tick ).toBeGreaterThan( timeBefore );
-        expect( objPerformance[ 0 ].tick ).toBeLessThan( timeAfter );
-    } );
-
-    test( 'new OTimer( wrong label array )', () => {
-        const timeBefore = performance.now();
-        const oTimer = new OTimer( [ 1, 2, 3 ] );
-        const timeAfter = performance.now();
-
-        const objPerformance = oTimer.getPerformance();
-
-        expect( fnType( objPerformance ) ).toBe( 'array' );
-        expect( objPerformance.length ).toBe( 1 );
-        expect( objPerformance[ 0 ].label ).toBe( '1,2,3' );
-        expect( objPerformance[ 0 ].tick ).toBeGreaterThan( timeBefore );
-        expect( objPerformance[ 0 ].tick ).toBeLessThan( timeAfter );
-    } );
-
-    test( 'new OTimer( wrong label object )', () => {
-        const timeBefore = performance.now();
-        const oTimer = new OTimer( { status: true } );
-        const timeAfter = performance.now();
-
-        const objPerformance = oTimer.getPerformance();
-
-        expect( fnType( objPerformance ) ).toBe( 'array' );
-        expect( objPerformance.length ).toBe( 1 );
-        expect( objPerformance[ 0 ].label ).toBe( '[object Object]' );
-        expect( objPerformance[ 0 ].tick ).toBeGreaterThan( timeBefore );
-        expect( objPerformance[ 0 ].tick ).toBeLessThan( timeAfter );
-    } );
-
-    test( 'new OTimer( wrong label fn )', () => {
-        const timeBefore = performance.now();
-        const oTimer = new OTimer( () => {} );
-        const timeAfter = performance.now();
-
-        const objPerformance = oTimer.getPerformance();
-
-        expect( fnType( objPerformance ) ).toBe( 'array' );
-        expect( objPerformance.length ).toBe( 1 );
-        expect( objPerformance[ 0 ].label ).toBe( '() => {}' );
-        expect( objPerformance[ 0 ].tick ).toBeGreaterThan( timeBefore );
-        expect( objPerformance[ 0 ].tick ).toBeLessThan( timeAfter );
-    } );
 } );
 
-describe( 'oTimer.getTimes', () => {
+describe( 'ts oTimer.getTimes', () => {
     test( 'getTimes()', () => {
-        const oTimer = new OTimer();
-        const times = oTimer.getTimes();
+        const oTimer: OTimer = new OTimer();
+        const times: OTimerStep[] = oTimer.getTimes();
 
         expect( fnType( times ) ).toBe( 'array' );
         expect( times.length ).toBe( 2 );
@@ -144,18 +61,18 @@ describe( 'oTimer.getTimes', () => {
     } );
 
     test( 'getTimes( doStep false )', () => {
-        const oTimer = new OTimer( 'label' );
-        const times = oTimer.getTimes( { doStep: false } );
+        const oTimer: OTimer = new OTimer( 'label' );
+        const times: OTimerStep[] = oTimer.getTimes( { doStep: false } );
 
         expect( fnType( times ) ).toBe( 'array' );
         expect( times.length ).toBe( 0 );
     } );
 
     test( 'getTimes( doStep true-true ) twice', async() => {
-        const oTimer = new OTimer();
-        const times1 = oTimer.getTimes();
+        const oTimer: OTimer = new OTimer();
+        const times1: OTimerStep[] = oTimer.getTimes();
         await sleep( 1000 );
-        const times2 = oTimer.getTimes();
+        const times2: OTimerStep[] = oTimer.getTimes();
 
         expect( fnType( times1 ) ).toBe( 'array' );
         expect( times1.length ).toBe( 2 );
@@ -178,10 +95,10 @@ describe( 'oTimer.getTimes', () => {
     } );
 
     test( 'getTimes( doStep true-false ) twice', async() => {
-        const oTimer = new OTimer();
-        const times1 = oTimer.getTimes();
+        const oTimer: OTimer = new OTimer();
+        const times1: OTimerStep[] = oTimer.getTimes();
         await sleep( 1000 );
-        const times2 = oTimer.getTimes( { doStep: false } );
+        const times2: OTimerStep[] = oTimer.getTimes( { doStep: false } );
 
         expect( fnType( times1 ) ).toBe( 'array' );
         expect( times1.length ).toBe( 2 );
@@ -201,12 +118,12 @@ describe( 'oTimer.getTimes', () => {
     } );
 
     test( 'getTimes( doStep true, addTotal false )', async() => {
-        const oTimer = new OTimer( 'start' );
+        const oTimer: OTimer = new OTimer( 'start' );
 
         await sleep( 1000 );
         oTimer.step( 'step' );
         await sleep( 1000 );
-        const times = oTimer.getTimes( { addTotal: false } );
+        const times: OTimerStep[] = oTimer.getTimes( { addTotal: false } );
 
         expect( fnType( times ) ).toBe( 'array' );
         expect( times.length ).toBe( 2 );
@@ -219,12 +136,12 @@ describe( 'oTimer.getTimes', () => {
     } );
 
     test( 'getTimes( doStep false, addTotal false )', async() => {
-        const oTimer = new OTimer( 'start' );
+        const oTimer: OTimer = new OTimer( 'start' );
 
         await sleep( 1000 );
         oTimer.step( 'step' );
         await sleep( 1000 );
-        const times = oTimer.getTimes( { doStep: false, addTotal: false } );
+        const times: OTimerStep[] = oTimer.getTimes( { doStep: false, addTotal: false } );
 
         expect( fnType( times ) ).toBe( 'array' );
         expect( times.length ).toBe( 1 );
@@ -232,45 +149,17 @@ describe( 'oTimer.getTimes', () => {
         expect( times[ 0 ].time ).toBeGreaterThan( 0.99 );
         expect( times[ 0 ].time ).toBeLessThan( 1.02 );
     } );
-
-    test( 'getTimes( wrong args null )', () => {
-        const oTimer = new OTimer();
-        const times = oTimer.getTimes( null );
-
-        expect( fnType( times ) ).toBe( 'array' );
-        expect( times.length ).toBe( 2 );
-        expect( times[ 0 ].label ).toBe( '' );
-        expect( times[ 0 ].time ).toBeLessThan( 0.02 );
-        expect( times[ 1 ].label ).toBe( 'total' );
-        expect( times[ 1 ].time ).toBeLessThan( 0.02 );
-        expect( times[ 0 ].time ).toEqual( times[ 1 ].time );
-        expect( times[ 0 ].progress ).toEqual( times[ 1 ].time );
-    } );
-
-    test( 'getTimes( wrong args number )', () => {
-        const oTimer = new OTimer();
-        const times = oTimer.getTimes( 77 );
-
-        expect( fnType( times ) ).toBe( 'array' );
-        expect( times.length ).toBe( 2 );
-        expect( times[ 0 ].label ).toBe( '' );
-        expect( times[ 0 ].time ).toBeLessThan( 0.02 );
-        expect( times[ 1 ].label ).toBe( 'total' );
-        expect( times[ 1 ].time ).toBeLessThan( 0.02 );
-        expect( times[ 0 ].time ).toEqual( times[ 1 ].time );
-        expect( times[ 0 ].progress ).toEqual( times[ 1 ].time );
-    } );
 } );
 
-describe( 'oTimer.step', () => {
+describe( 'ts oTimer.step', () => {
 
     test( 'step( undefined )', async() => {
-        const oTimer = new OTimer();
+        const oTimer: OTimer = new OTimer();
 
         await sleep( 1000 );
         oTimer.step();
         await sleep( 1000 );
-        const times = oTimer.getTimes();
+        const times: OTimerStep[] = oTimer.getTimes();
 
         expect( fnType( times ) ).toBe( 'array' );
         expect( times.length ).toBe( 3 );
@@ -289,12 +178,12 @@ describe( 'oTimer.step', () => {
     } );
 
     test( 'step( label )', async() => {
-        const oTimer = new OTimer();
+        const oTimer: OTimer = new OTimer();
 
         await sleep( 1000 );
         oTimer.step( 'chacho' );
         await sleep( 1000 );
-        const times = oTimer.getTimes();
+        const times: OTimerStep[] = oTimer.getTimes();
 
         expect( fnType( times ) ).toBe( 'array' );
         expect( times.length ).toBe( 3 );
@@ -310,14 +199,14 @@ describe( 'oTimer.step', () => {
     } );
 
     test( 'step( label ) 1-2-1', async() => {
-        const oTimer = new OTimer();
+        const oTimer: OTimer = new OTimer();
 
         await sleep( 1000 );
         oTimer.step( 'chacho' );
         await sleep( 2000 );
         oTimer.step( 'loco' );
         await sleep( 1000 );
-        const times = oTimer.getTimes();
+        const times: OTimerStep[] = oTimer.getTimes();
 
         expect( fnType( times ) ).toBe( 'array' );
         expect( times.length ).toBe( 4 );

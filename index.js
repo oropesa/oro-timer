@@ -1,41 +1,49 @@
 const { performance } = require( 'perf_hooks' );
 
-class OroTimer {
-    #timerSteps;
+class OTimer {
+    #ticks;
 
     constructor( label = '' ) { this.start( label ); }
 
-    start( label = '' ) { this.#timerSteps = [ { label, tick: performance.now() } ]; }
+    start( label = '' ) {
+        label = label === null ? '' : label.toString();
+        this.#ticks = [ { label, tick: performance.now() } ];
+    }
 
-    step( label = '' ) { this.#timerSteps.push( { label, tick: performance.now() } ); }
+    step( label = '' ) {
+        label = label === null ? '' : label.toString();
+        this.#ticks.push( { label, tick: performance.now() } );
+    }
 
-    getPerformance() { return this.#timerSteps; }
+    getPerformance() { return this.#ticks; }
 
-    getTimes( args =  {} ) {
-        let doStep = args.doStep !== undefined ? args.doStep : true;
-        let addTotal = args.addTotal !== undefined ? args.addTotal : true;
+    getTimes( args = {} ) {
+        (typeof args !== 'object' || args === null) && (args = {});
+        let doStep = args.doStep !== undefined ? !! args.doStep : true;
+        let addTotal = args.addTotal !== undefined ? !! args.addTotal : true;
 
-        doStep && this.step();
-        if( this.#timerSteps.length < 2 ) {
+        doStep && this.step( 'end' );
+        if( this.#ticks.length < 2 ) {
             return [];
         }
 
         let times = [];
-        for( let i = 0, leni = this.#timerSteps.length - 1; i < leni; i++ ) {
+        for( let i = 0, leni = this.#ticks.length - 1; i < leni; i++ ) {
             times.push( {
-                label: this.#timerSteps[ i ].label,
-                time: (this.#timerSteps[ i + 1 ].tick - this.#timerSteps[ i ].tick) / 1000,
-                progress: (this.#timerSteps[ i + 1 ].tick - this.#timerSteps[ 0 ].tick) / 1000
+                label: this.#ticks[ i ].label,
+                time: (this.#ticks[ i + 1 ].tick - this.#ticks[ i ].tick) / 1000,
+                progress: (this.#ticks[ i + 1 ].tick - this.#ticks[ 0 ].tick) / 1000
             } );
         }
 
         addTotal && times.push( {
             label: 'total',
-            time: (this.#timerSteps[ this.#timerSteps.length - 1 ].tick - this.#timerSteps[ 0 ].tick) / 1000
+            time: times[ times.length - 1 ].progress,
+            progress: times[ times.length - 1 ].progress,
         } );
 
         return times;
     }
 }
 
-module.exports = OroTimer;
+module.exports = OTimer;
