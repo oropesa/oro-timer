@@ -1,6 +1,6 @@
 {
   "name": "oro-timer",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "OroTimer is a class designed for monitoring code performance.",
   "type": "module",
   "main": "./dist/index.cjs",
