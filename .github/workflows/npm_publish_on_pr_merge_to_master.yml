@@ -1,0 +1,72 @@
+name: Tag, Release, and Publish on PR Merge to Master
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  master:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR Merge Status on Master
+        if: github.event.pull_request.base.ref == 'master' && github.event.pull_request.merged == true
+        run: echo "::set-output name=is_merged::${{ github.event.pull_request.merged }}"
+
+  version:
+    runs-on: ubuntu-latest
+    needs: master
+    steps:
+      - name: Install Node.js and jq
+        if: steps.master.outputs.is_merged == 'true'
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+
+      - name: Get Version from package.json
+        id: get_version
+        if: steps.master.outputs.is_merged == 'true'
+        run: echo "::set-output name=version::$(jq -r .version package.json)"
+
+      - name: Check if Tag Exists
+        if: steps.master.outputs.is_merged == 'true'
+        run: |
+          tag="v${{ steps.get_version.outputs.version }}"
+          if git rev-parse $tag >/dev/null 2>&1; then
+            echo "::error::Tag v${{ steps.get_version.outputs.version }} already exists."
+          fi
+
+  tag:
+    runs-on: ubuntu-latest
+    needs: version
+    steps:
+      - name: Create and Push Tag
+        if: steps.master.outputs.is_merged == 'true'
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git tag -a "v${{ steps.version.outputs.version }}" -m "Release v${{ steps.version.outputs.version }}"
+          git push origin "v${{ steps.version.outputs.version }}"
+
+  release:
+    runs-on: ubuntu-latest
+    needs: tag
+    steps:
+      - name: Create GitHub Release
+        if: steps.master.outputs.is_merged == 'true'
+        run: |
+          gh release create "v${{ steps.version.outputs.version }}" "dist/*" --title "Release v${{ steps.version.outputs.version }}" --notes "Release notes for v${{ steps.version.outputs.version }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: release
+    steps:
+      - name: Publish as NPM Package
+        if: steps.master.outputs.is_merged == 'true'
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

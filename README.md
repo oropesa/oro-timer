@@ -12,9 +12,9 @@
 
 ## Overview
 
-OroTimer is a class to check the _performance times_ of the code.
+OroTimer is a class designed for monitoring code performance. 
 
-The _code times_ can be separated by steps, and each _step_ shows time and progress individually.
+It allows you to measure code execution times, which can be segmented into individual steps, each displaying its own timing and progress information.
 
 ## Installation
 
@@ -25,13 +25,13 @@ npm install oro-timer
 ## Example:
 
 ```js
-// js
-const OTimer = require( 'oro-timer' );
+// cjs
+const { OTimer } = require( 'oro-timer' );
 
-// ts
-import OTimer from 'oro-timer';
+// mjs, ts
+import { OTimer } from 'oro-timer';
 
-import OTimer, { OTimerTick, OTimerStep, OTimerGetTimesArgs } from 'oro-timer';
+import type { OTimerTick, OTimerStep, OTimerGetTimesArgs } from 'oro-timer';
 ```
 
 ```ts
@@ -118,7 +118,7 @@ You can divide the _code-times_ in separated steps by the method `.step()`.
 _Note:_ Param `label` it's only informative, and it helps to recognize the part of the code that is running.
 
 ```js
-const OTimer = require( 'oro-timer' );
+const { OTimer } = require( 'oro-timer' );
 
 let oTimer = new OTimer( 'first action' );
 // ...
