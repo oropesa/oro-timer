@@ -1,0 +1,35 @@
+$schema: https://json.schemastore.org/eslintrc
+extends:
+  - alloy
+  - alloy/typescript
+  - plugin:unicorn/recommended
+parserOptions:
+  project: './tsconfig.json'
+globals:
+  expect: readonly
+  test: readonly
+  jest: readonly
+  describe: readonly
+overrides:
+  - files:
+      - '**/*.ts'
+      - '**/*.tsx'
+    env:
+      jest: true
+ignorePatterns:
+  - dist/
+  - tests/*.js
+rules:
+  max-params: ["error", 4]
+  '@typescript-eslint/no-unused-vars':
+    - error
+    - argsIgnorePattern: '^_'
+      varsIgnorePattern: '^_'
+  unicorn/switch-case-braces: ["error", "avoid"]
+  unicorn/no-nested-ternary: off
+  unicorn/no-null: off
+  unicorn/prevent-abbreviations:
+    - error
+    - allowList:
+        OTimerGetTimesArgs: true
+        args: true
