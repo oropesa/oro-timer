@@ -69,20 +69,6 @@ jobs:
         if: ${{ env.MASTER_IS_MERGED }} == 'true'
         uses: actions/checkout@v3
 
-      - name: "Install Node.js"
-        if: ${{ env.MASTER_IS_MERGED }} == 'true'
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: "Install Dependencies"
-        if: ${{ env.MASTER_IS_MERGED }} == 'true'
-        run: npm install
-
-      - name: "Run Build"
-        if: ${{ env.MASTER_IS_MERGED }} == 'true'
-        run: npm run build
-
       - name: "Create GitHub Release"
         if: ${{ env.MASTER_IS_MERGED }} == 'true'
         uses: actions/create-release@latest
