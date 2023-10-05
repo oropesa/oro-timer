@@ -38,8 +38,8 @@ jobs:
         if: ${{ env.MASTER_IS_MERGED }} == 'true'
         run: |
           TAG="v${{ steps.get_version.outputs.version }}"
-          if [ $(git tag -l "${TAG}") ]; then
-            echo "::error::Tag v${TAG} already exists."
+          if [ $(git tag -l "$TAG") ]; then
+            echo "::error::Tag v${{ steps.get_version.outputs.version }} already exists."
           fi
 
   tag:
