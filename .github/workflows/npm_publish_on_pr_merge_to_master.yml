@@ -46,13 +46,13 @@ jobs:
     steps:
       - name: "Create and Push Tag"
         if: ${{ env.MASTER_IS_MERGED }} == 'true'
-        env:
-          PROJECT_VERSION: ${{ env.PROJECT_VERSION }}
         run: |
+          VERSION=$PROJECT_VERSION
+          echo "Tagging with version v$VERSION"
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
-          git tag -a "v${{ env.PROJECT_VERSION }}" -m "Release v${{ env.PROJECT_VERSION }}"
-          git push origin "v${{ env.PROJECT_VERSION }}"
+          git tag -a "v$VERSION" -m "Release v$VERSION"
+          git push origin "v$VERSION"
 
   release:
     runs-on: ubuntu-latest
