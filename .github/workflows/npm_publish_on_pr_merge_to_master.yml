@@ -90,7 +90,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PROJECT_VERSION: ${{needs.tag.outputs.PROJECT_VERSION}}
         run: |
-          gh release create "v${{ env.PROJECT_VERSION }}" "dist/*" --title "Release v${{ env.PROJECT_VERSION }}" --notes "Release notes for v${{ env.PROJECT_VERSION }}"
+          gh release create "v${{ env.PROJECT_VERSION }}" "./dist/*" --title "Release v${{ env.PROJECT_VERSION }}" --notes "Release notes for v${{ env.PROJECT_VERSION }}"
 
   publish:
     runs-on: ubuntu-latest
