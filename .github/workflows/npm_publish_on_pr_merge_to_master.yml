@@ -69,20 +69,14 @@ jobs:
         if: ${{ env.MASTER_IS_MERGED }} == 'true'
         uses: actions/checkout@v3
 
-      - name: "Get summary from CHANGELOG.md"
-        if: ${{ env.MASTER_IS_MERGED }} == 'true'
-        id: get_changelog
-        env:
-          PROJECT_VERSION: ${{needs.tag.outputs.PROJECT_VERSION}}
-        run: echo "changelog=$(awk '/^## ${{ env.PROJECT_VERSION }}/{found=1} found{if (/^##/) if(++count==2) exit; print}' CHANGELOG.md)" >> $GITHUB_OUTPUT
-
       - name: "Create GitHub Release"
         if: ${{ env.MASTER_IS_MERGED }} == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PROJECT_VERSION: ${{needs.tag.outputs.PROJECT_VERSION}}
         run: |
-          gh release create "v${{ env.PROJECT_VERSION }}" --title "Release v${{ env.PROJECT_VERSION }}" --notes "${{ steps.get_changelog.outputs.changelog }}"
+          CHANGELOG="$(awk '/^## ${{ env.PROJECT_VERSION }}/{found=1} found{if (/^##/) if(++count==2) exit; print}' CHANGELOG.md)"
+          gh release create "v${{ env.PROJECT_VERSION }}" --title "Release v${{ env.PROJECT_VERSION }}" --notes "$CHANGELOG"
 
   publish:
     runs-on: ubuntu-latest
