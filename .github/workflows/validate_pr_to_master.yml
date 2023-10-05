@@ -47,6 +47,6 @@ jobs:
       - name: "Check if Tag Exists"
         run: |
           TAG="v${{ steps.get_version.outputs.version }}"
-          if [ $(git tag -l "${ TAG }") ]; then
-            echo "::error::Tag ${ TAG } already exists."
+          if [ $(git tag -l "${TAG}") ]; then
+            echo "::error::Tag ${TAG} already exists."
           fi
