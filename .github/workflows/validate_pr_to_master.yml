@@ -46,7 +46,7 @@ jobs:
 
       - name: "Check if Tag Exists"
         run: |
-          tag="v${{ steps.get_version.outputs.version }}"
-          if git rev-parse $tag >/dev/null 2>&1; then
-            echo "::error::Tag v${{ steps.get_version.outputs.version }} already exists."
+          TAG="v${{ steps.get_version.outputs.version }}"
+          if [ $(git tag -l "${ TAG }") ]; then
+            echo "::error::Tag ${ TAG } already exists."
           fi

@@ -37,9 +37,9 @@ jobs:
       - name: "Check if Tag Exists"
         if: ${{ env.MASTER_IS_MERGED }} == 'true'
         run: |
-          tag="v${{ steps.get_version.outputs.version }}"
-          if git rev-parse $tag >/dev/null 2>&1; then
-            echo "::error::Tag v${{ steps.get_version.outputs.version }} already exists."
+          TAG="v${{ steps.get_version.outputs.version }}"
+          if [ $(git tag -l "${ TAG }") ]; then
+            echo "::error::Tag v${ TAG } already exists."
           fi
 
   tag:
