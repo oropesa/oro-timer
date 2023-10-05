@@ -49,7 +49,7 @@ jobs:
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           tag="v${{ env.PROJECT_VERSION }}"
-          git tag -a "v${{ tag }}" -m "Release v${{ $tag }}"
+          git tag -a "v$tag" -m "Release v${{ $tag }}"
           git push origin "v${{ $env.PROJECT_VERSION }}"
 
   release:
