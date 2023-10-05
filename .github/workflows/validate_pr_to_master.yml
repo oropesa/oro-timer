@@ -49,3 +49,14 @@ jobs:
           if git rev-parse $tag >/dev/null 2>&1; then
             echo "::error::Tag v${{ env.PROJECT_VERSION }} already exists."
           fi
+
+  tag:
+    runs-on: ubuntu-latest
+    needs: version
+    steps:
+      - name: "Create and Push Tag"
+        run: |
+          VERSION=${{ env.PROJECT_VERSION }}
+          echo "Tagging with version v$VERSION"
+          echo "Tagging with version v${ VERSION }"
+          echo "Tagging with version v${{ env.PROJECT_VERSION }}"
