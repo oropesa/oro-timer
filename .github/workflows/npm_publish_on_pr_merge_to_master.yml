@@ -48,8 +48,9 @@ jobs:
         run: |
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
-          git tag -a "v${{ env.PROJECT_VERSION }}" -m "Release v${{ env.PROJECT_VERSION }}"
-          git push origin "v${{ env.PROJECT_VERSION }}"
+          tag="v${{ env.PROJECT_VERSION }}"
+          git tag -a "v${{ tag }}" -m "Release v${{ $tag }}"
+          git push origin "v${{ $env.PROJECT_VERSION }}"
 
   release:
     runs-on: ubuntu-latest
