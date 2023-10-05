@@ -1,5 +1,7 @@
 ## 2.0.3, 2.0.2, 2.0.1 / 2023-10-04
-* Fixed _github action_ `npm_publish_on_pr_merge_to_master`.
+* Fixed _github actions_:
+  * `validate_pr_to_master`
+  * `npm_publish_on_pr_merge_to_master`.
 
 ## 2.0.0 / 2023-10-04
 
