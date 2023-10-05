@@ -16,6 +16,8 @@ jobs:
   project_version:
     runs-on: ubuntu-latest
     needs: branch_master
+    outputs:
+      PROJECT_VERSION: ${{ steps.get_version.outputs.version }}
     steps:
       - name: "Checkout Code"
         if: ${{ env.MASTER_IS_MERGED }} == 'true'
@@ -29,30 +31,36 @@ jobs:
 
       - name: "Get Version from package.json"
         if: ${{ env.MASTER_IS_MERGED }} == 'true'
-        run: echo "PROJECT_VERSION=$(jq -r .version ./package.json)" >> $GITHUB_ENV
+        id: get_version
+        run: echo "version=$(jq -r .version ./package.json)" >> $GITHUB_OUTPUT
 
       - name: "Check if Tag Exists"
         if: ${{ env.MASTER_IS_MERGED }} == 'true'
         run: |
-          is_merged="v${{ env.MASTER_IS_MERGED }}"
-          tag="v${{ env.PROJECT_VERSION }}"
+          tag="v${{ steps.get_version.outputs.version }}"
           if git rev-parse $tag >/dev/null 2>&1; then
-            echo "::error::Tag v${{ env.PROJECT_VERSION }} already exists."
+            echo "::error::Tag v${{ steps.get_version.outputs.version }} already exists."
           fi
 
   tag:
     runs-on: ubuntu-latest
     needs: project_version
+    outputs:
+      PROJECT_VERSION: ${{needs.project_version.outputs.PROJECT_VERSION}}
     steps:
+      - name: "Checkout Code"
+        if: ${{ env.MASTER_IS_MERGED }} == 'true'
+        uses: actions/checkout@v3
+
       - name: "Create and Push Tag"
         if: ${{ env.MASTER_IS_MERGED }} == 'true'
+        env:
+          PROJECT_VERSION: ${{needs.project_version.outputs.PROJECT_VERSION}}
         run: |
-          VERSION=$PROJECT_VERSION
-          echo "Tagging with version v${{ VERSION }}"
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
-          git tag -a "v${{ VERSION }}" -m "Release v${{ VERSION }}"
-          git push origin "v${{ VERSION }}"
+          git tag -a "v${{ env.PROJECT_VERSION }}" -m "Release v${{ env.PROJECT_VERSION }}"
+          git push origin "v${{ env.PROJECT_VERSION }}"
 
   release:
     runs-on: ubuntu-latest
@@ -80,6 +88,7 @@ jobs:
         if: ${{ env.MASTER_IS_MERGED }} == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROJECT_VERSION: ${{needs.tag.outputs.PROJECT_VERSION}}
         run: |
           gh release create "v${{ env.PROJECT_VERSION }}" "dist/*" --title "Release v${{ env.PROJECT_VERSION }}" --notes "Release notes for v${{ env.PROJECT_VERSION }}"
 
@@ -87,6 +96,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: release
     steps:
+      - name: "Checkout Code"
+        if: ${{ env.MASTER_IS_MERGED }} == 'true'
+        uses: actions/checkout@v3
+
       - name: "Publish as NPM Package"
         if: ${{ env.MASTER_IS_MERGED }} == 'true'
         env:

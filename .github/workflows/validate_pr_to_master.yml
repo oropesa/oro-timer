@@ -9,43 +9,44 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: "Checkout Code"
         uses: actions/checkout@v3
 
-      - name: Install Node.js and jq
+      - name: "Install Node.js and jq"
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Install Dependencies
+      - name: "Install Dependencies"
         run: npm install
 
-      - name: Run Build
+      - name: "Run Build"
         run: npm run build
 
-      - name: Run Linter
+      - name: "Run Linter"
         run: npm run lint
 
-      - name: Run Tests
+      - name: "Run Tests"
         run: npm run test
 
-  version:
+  project_version:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: "Checkout Code"
         uses: actions/checkout@v3
 
-      - name: Install Node.js and jq
+      - name: "Install Node.js and jq"
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Get Version from package.json
-        run: echo "PROJECT_VERSION=$(jq -r .version ./package.json)" >> $GITHUB_ENV
+      - name: "Get Version from package.json"
+        id: get_version
+        run: echo "version=$(jq -r .version ./package.json)" >> $GITHUB_OUTPUT
 
-      - name: Check if Tag Exists
+      - name: "Check if Tag Exists"
         run: |
-          tag="v${{ env.PROJECT_VERSION }}"
+          tag="v${{ steps.get_version.outputs.version }}"
           if git rev-parse $tag >/dev/null 2>&1; then
-            echo "::error::Tag v${{ env.PROJECT_VERSION }} already exists."
+            echo "::error::Tag v${{ steps.get_version.outputs.version }} already exists."
           fi
