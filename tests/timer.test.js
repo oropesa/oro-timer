@@ -258,12 +258,64 @@ describe('oTimer.getTimes', () => {
   });
 });
 
+describe('oTimer.start', () => {
+  test('start( undefined )', async () => {
+    const oTimer = new OTimer('start');
+    await sleep(1000);
+
+    oTimer.start();
+    await sleep(1000);
+    oTimer.step();
+    await sleep(1000);
+    const times = oTimer.getTimes();
+
+    expect(Array.isArray(times)).toBe(true);
+    expect(times.length).toBe(3);
+    expect(times[0].label).toBe('');
+    expect(times[0].time).toBeGreaterThan(0.99);
+    expect(times[0].time).toBeLessThan(1.02);
+    expect(times[1].label).toBe('');
+    expect(times[1].time).toBeGreaterThan(0.99);
+    expect(times[1].time).toBeLessThan(1.02);
+    expect(times[2].label).toBe('total');
+    expect(times[2].time).toBeGreaterThan(1.99);
+    expect(times[2].time).toBeLessThan(2.05);
+
+    expect(times[0].progress).toBeLessThan(times[1].progress);
+    expect(times[1].progress).toEqual(times[2].time);
+  });
+});
+
 describe('oTimer.step', () => {
   test('step( undefined )', async () => {
     const oTimer = new OTimer();
 
     await sleep(1000);
     oTimer.step();
+    await sleep(1000);
+    const times = oTimer.getTimes();
+
+    expect(Array.isArray(times)).toBe(true);
+    expect(times.length).toBe(3);
+    expect(times[0].label).toBe('');
+    expect(times[0].time).toBeGreaterThan(0.99);
+    expect(times[0].time).toBeLessThan(1.02);
+    expect(times[1].label).toBe('');
+    expect(times[1].time).toBeGreaterThan(0.99);
+    expect(times[1].time).toBeLessThan(1.02);
+    expect(times[2].label).toBe('total');
+    expect(times[2].time).toBeGreaterThan(1.99);
+    expect(times[2].time).toBeLessThan(2.05);
+
+    expect(times[0].progress).toBeLessThan(times[1].progress);
+    expect(times[1].progress).toEqual(times[2].time);
+  });
+
+  test('step( label null )', async () => {
+    const oTimer = new OTimer();
+
+    await sleep(1000);
+    oTimer.step(null);
     await sleep(1000);
     const times = oTimer.getTimes();
 

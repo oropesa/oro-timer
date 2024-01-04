@@ -1,3 +1,26 @@
+## 2.0.6 / 2024-01-07
+* Added _coverage_ for testing.
+* Added _watcher_ for coding.
+* Improved _github cicd_ replacing `npm install` to `npm ci`.
+* Enhanced _linter_ adding some extensions.
+* Enhanced _prettier_ adding import-sorter.
+* Enhanced testing to achieve the 100% of coverage (yay!).
+* Updated _dev_ libs:
+  * `@babel/core` from `v7.23.3` to `v7.23.7`.
+  * `@babel/preset-env` from `v7.23.3` to `v7.23.7`.
+  * `@types/jest` from `v29.5.10` to `v29.5.11`.
+  * `@typescript-eslint/eslint-plugin` from `v6.12.0` to `v6.18.0`.
+  * `@typescript-eslint/parser` from `v6.12.0` to `v6.18.0`.
+  * `eslint` from `v8.54.0` to `v^8.56.0`.
+  * `eslint-plugin-unicorn` from `v49.0.0` to `v50.0.1`.
+  * `prettier` from `v3.1.0` to `v3.1.1`.
+  * `typescript` from `v5.2.2` to `v5.3.3`.
+* Added _dev_ libs:
+  * `@trivago/prettier-plugin-sort-imports`
+  * `eslint-config-prettier`
+  * `eslint-plugin-jest`
+  * `nodemon`
+
 ## 2.0.5 / 2023-11-22
 * Fixed _github action_ `npm_publish_on_pr_merge_to_master`.
 * Updated _dev_ libs:
