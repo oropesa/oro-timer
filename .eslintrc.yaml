@@ -1,22 +1,16 @@
-$schema: https://json.schemastore.org/eslintrc
+parser: '@typescript-eslint/parser'
+plugins:
+  - '@typescript-eslint'
 extends:
   - alloy
   - alloy/typescript
+  - eslint:recommended
+  - plugin:jest/recommended
   - plugin:unicorn/recommended
-parserOptions:
-  project: './tsconfig.json'
-globals:
-  expect: readonly
-  test: readonly
-  jest: readonly
-  describe: readonly
-overrides:
-  - files:
-      - '**/*.ts'
-      - '**/*.tsx'
-    env:
-      jest: true
+  - plugin:@typescript-eslint/recommended
+  - prettier
 ignorePatterns:
+  - coverage/
   - dist/
   - tests/*.js
 rules:
@@ -31,5 +25,7 @@ rules:
   unicorn/prevent-abbreviations:
     - error
     - allowList:
-        OTimerGetTimesArgs: true
+        tmp: true
         args: true
+        dist: true
+        OTimerGetTimesArgs: true

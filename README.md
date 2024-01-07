@@ -4,11 +4,6 @@
 * [Installation](#installation)
 * [Example](#example)
 * [Methods](#methods)
-  * [new OTimer()](#new-otimer)
-  * [oTimer.start()](#otimerstart)
-  * [oTimer.step()](#otimerstep)
-  * [oTimer.getTimes()](#otimergettimes)
-  * [oTimer.getPerformance()](#otimergetperformance)
 
 ## Overview
 
@@ -54,6 +49,16 @@ console.log( times );
 
 ## Methods
 
+<hr>
+
+* [new OTimer()](#new-otimer)
+* [oTimer.start()](#otimerstart)
+* [oTimer.step()](#otimerstep)
+* [oTimer.getTimes()](#otimergettimes)
+* [oTimer.getPerformance()](#otimergetperformance)
+
+<hr>
+
 ### new OTimer()
 
 ```ts
@@ -75,6 +80,8 @@ console.log( times );
 //   { label: 'total', time: 3.953849299998954, progress: 3.953849299998954 }
 // ]
 ```
+
+<hr>
 
 ### oTimer.start()
 
@@ -107,6 +114,8 @@ console.log( times2 );
 // ]
 ```
 
+<hr>
+
 ### oTimer.step()
 
 ```ts
@@ -133,6 +142,8 @@ console.log( times );
 //   { label: 'total', time: 5.715176299998537, progress: 5.715176299998537 }
 // ]
 ```
+
+<hr>
 
 ### oTimer.getTimes()
 
@@ -185,6 +196,8 @@ console.log( timesAgain );
 //   { label: 'total', time: 5.715176299998537, progress: 5.715176299998537 }
 // ]
 ```
+
+<hr>
 
 ### oTimer.getPerformance()
 
