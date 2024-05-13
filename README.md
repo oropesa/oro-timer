@@ -151,6 +151,7 @@ console.log( times );
 oTimer.getTimes( args?: OTimerGetTimesArgs ): OTimerStep[];
 
 interface OTimerGetTimesArgs {
+   label?: string;
    doStep?: boolean;
    addTotal?: boolean;
 }
@@ -165,14 +166,11 @@ interface OTimerStep {
 Method `.getTimes()` is used to finish the timer and get step-times.
 So, by default, it does the last step automatically.
 
-1. **doStep** ( default: true ): 
-   
-    If you want to get the same `times` again, you must `false` the first param.
-
-
-2. **addTotal** ( default: true ): 
-   
-    By default, it adds as last item the `total` of oTimer.<br>
+* **label** ( default: 'end' ):
+* **doStep** ( default: true ): 
+  * If you want to get the same `times` again, you must `false` the first param.
+* **addTotal** ( default: true ): 
+  * By default, it adds as last item the `total` of oTimer.<br>
     If you want to avoid this behaviour, just `false` the second param.
 
 
