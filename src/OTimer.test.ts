@@ -1,7 +1,7 @@
 import { performance } from 'node:perf_hooks';
 
-import { OTimer } from '../dist';
-import type { OTimerStep, OTimerTick } from '../dist';
+import { OTimer } from './';
+import type { OTimerStep, OTimerTick } from './';
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => {
@@ -48,6 +48,25 @@ describe('ts oTimer.getTimes', () => {
   test('getTimes()', () => {
     const oTimer: OTimer = new OTimer();
     const times: OTimerStep[] = oTimer.getTimes();
+
+    expect(Array.isArray(times)).toBe(true);
+    expect(times.length).toBe(2);
+    expect(times[0].label).toBe('');
+    expect(times[0].time).toBeLessThan(0.02);
+    expect(times[1].label).toBe('total');
+    expect(times[1].time).toBeLessThan(0.02);
+    expect(times[0].time).toEqual(times[1].time);
+    expect(times[0].progress).toEqual(times[1].time);
+  });
+
+  test('getTimes( label)', () => {
+    const oTimer: OTimer = new OTimer();
+    const times: OTimerStep[] = oTimer.getTimes({ label: 'finalStep' });
+
+    const objectPerformance: OTimerTick[] = oTimer.getPerformance();
+
+    expect(Array.isArray(objectPerformance)).toBe(true);
+    expect(objectPerformance[1].label).toBe('finalStep');
 
     expect(Array.isArray(times)).toBe(true);
     expect(times.length).toBe(2);
