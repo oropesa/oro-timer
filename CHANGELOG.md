@@ -1,3 +1,14 @@
+## 2.2.1 / 2024-09-23
+- Update typescript target to `ES2020`.
+- Update _dev_ libs:
+  - `@eslint/js` from `v9.10.0` to `v9.11.0`.
+  - `@types/jest` from `v29.5.12` to `v29.5.13`.
+  - `eslint` from `v9.10.0` to `v9.11.0`.
+  - `husky` from `v9.1.5` to `v9.1.6`.
+  - `nodemon` from `v3.1.4` to `v3.1.7`.
+  - `tsup` from `v8.2.4` to `v8.3.0`.
+  - `typescript-eslint` from `v8.4.0` to `v8.6.0`.
+
 ## 2.2.0 / 2024-09-07
 
 - Add property `seconds` in `OTimerStep` to have declared the time as '0.00' seconds string format.
