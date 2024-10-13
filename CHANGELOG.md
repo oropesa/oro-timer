@@ -1,5 +1,16 @@
+## 2.2.2 / 2024-10-13
+- Update _dev_ libs:
+  - `@babel/core` from `v7.25.2` to `v7.25.8`.
+  - `@babel/preset-env` from `v7.25.4` to `v7.25.8`.
+  - `@babel/preset-typescript` from `v7.24.7` to `v7.25.7`.
+  - `@eslint/js` from `v9.11.0` to `v9.12.0`.
+  - `eslint` from `v9.11.0` to `v9.12.0`.
+  - `eslint-plugin-unicorn` from `v55.0.0` to `v56.0.0`.
+  - `globals` from `v15.9.0` to `v15.11.0`.
+  - `typescript-eslint` from `v8.6.0` to `v8.8.1`.
+
 ## 2.2.1 / 2024-09-23
-- Update typescript target to `ES2020`.
+- Update typescript _target_ to `ES2020`.
 - Update _dev_ libs:
   - `@eslint/js` from `v9.10.0` to `v9.11.0`.
   - `@types/jest` from `v29.5.12` to `v29.5.13`.
