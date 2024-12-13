@@ -2,8 +2,9 @@ import {
   DEFAULT_IGNORES,
   setEslintLanguageOptionsBrowser,
   setEslintPluginJest,
+  setEslintPluginJestDom,
   setEslintPluginPrettier,
-  setEslintPluginTypescripEslint,
+  setEslintPluginTypescriptEslint,
   setEslintPluginUnicorn,
 } from './eslint.config.utils.js';
 
@@ -14,6 +15,7 @@ export default [
   setEslintLanguageOptionsBrowser(),
   setEslintPluginUnicorn({ allowList }),
   setEslintPluginJest(),
+  setEslintPluginJestDom(),
   setEslintPluginPrettier(),
-  ...setEslintPluginTypescripEslint(),
+  ...setEslintPluginTypescriptEslint(),
 ];
