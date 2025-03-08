@@ -8,7 +8,7 @@ import {
   setEslintPluginUnicorn,
 } from './eslint.config.utils.js';
 
-const allowList = ['obj', 'tmp', 'args', 'props', 'OTimerGetTimesArgs'];
+const allowList = ['obj', 'tmp', 'args', 'utils', 'props', 'OTimerGetTimesArgs'];
 
 export default [
   { ignores: DEFAULT_IGNORES },
