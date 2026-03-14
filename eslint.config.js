@@ -1,6 +1,7 @@
 import {
   DEFAULT_IGNORES,
-  setEslintLanguageOptionsBrowser,
+  setEslintLanguageOptionsProject,
+  setEslintLanguageOptionsRootAsNode,
   setEslintPluginJest,
   setEslintPluginJestDom,
   setEslintPluginPrettier,
@@ -8,11 +9,12 @@ import {
   setEslintPluginUnicorn,
 } from './eslint.config.utils.js';
 
-const allowList = ['obj', 'tmp', 'args', 'utils', 'props', 'OTimerGetTimesArgs'];
+const allowList = ['dev', 'Dev', 'obj', 'tmp', 'args', 'Args', 'utils', 'props'];
 
 export default [
   { ignores: DEFAULT_IGNORES },
-  setEslintLanguageOptionsBrowser(),
+  setEslintLanguageOptionsProject(),
+  setEslintLanguageOptionsRootAsNode(),
   setEslintPluginUnicorn({ allowList }),
   setEslintPluginJest(),
   setEslintPluginJestDom(),

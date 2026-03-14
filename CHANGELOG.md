@@ -1,5 +1,31 @@
+## 2.2.6 / 2026-03-14
+
+- Update GitHub `npm publish` using _Trusted Publisher_.
+- Update GitHub `actions/-@version` and run `coverage` (instead of `test`).
+- Update _tsconfig_ wit `"module": "ESNext"` (instead of `"commonjs"`).
+- Add eslint _utils_ `setEslintLanguageOptionsProject` and `setEslintLanguageOptionsRootAsNode`.
+- Add `check:all` and `update:deps` _package scripts_.
+- Update _dev_ libs:
+  - `@babel/core` from `v7.28.4` to `v7.29.0`.
+  - `@babel/preset-env` from `v7.28.3` to `v7.29.0`.
+  - `@babel/preset-typescript` from `v7.27.1` to `v7.28.5`.
+  - `@eslint/js` from `v9.38.0` to `v9.39.4`.
+  - `@trivago/prettier-plugin-sort-imports` from `v5.2.2` to `v6.0.2`.
+  - `babel-jest` from `v30.2.0` to `v30.3.0`.
+  - `eslint` from `v9.38.0` to `v9.39.4`.
+  - `eslint-plugin-jest` from `v29.0.1` to `v29.15.0`.
+  - `eslint-plugin-prettier` from `v5.5.4` to `v5.5.5`.
+  - `eslint-plugin-unicorn` from `v61.0.2` to `v63.0.0`.
+  - `globals` from `v16.4.0` to `v17.4.0`.
+  - `jest` from `v30.2.0` to `v30.3.0`.
+  - `nodemon` from `v3.1.10` to `v3.1.14`.
+  - `prettier` from `v3.6.2` to `v3.8.1`.
+  - `tsup` from `v8.5.0` to `v8.5.1`.
+  - `typescript-eslint` from `v8.46.1` to `v8.57.0`.
+
 ## 2.2.5 / 2025-10-20
-- Update _github-workflows_ with `actions/checkout@v5` and `node-version: 22`.
+
+- Update _github-workflows_ with `actions/checkout@v6` and `node-version: 22`.
 - Update _dev_ libs:
   - `@babel/core` from `v7.26.9` to `v7.28.4`.
   - `@babel/preset-env` from `v7.26.9` to `v7.28.3`.
@@ -21,6 +47,7 @@
   - `typescript-eslint` from `v8.26.0` to `v8.46.1`.
 
 ## 2.2.4 / 2025-03-08
+
 - Split _types_ in `OTimer.types.ts`.
 - Reset `package-lock.json`.
 - Enhance `tsconfig.json`.
@@ -42,6 +69,7 @@
   - `typescript-eslint` from `v8.18.0` to `v8.26.0`.
 
 ## 2.2.3 / 2024-12-13
+
 - Improve `eslint.config.js`.
 - Added _dev_ libs:
   - `eslint-plugin-jest-dom` added `v5.5.0`.
@@ -65,6 +93,7 @@
   - `typescript-eslint` from `v8.8.1` to `v8.18.0`.
 
 ## 2.2.2 / 2024-10-13
+
 - Update _dev_ libs:
   - `@babel/core` from `v7.25.2` to `v7.25.8`.
   - `@babel/preset-env` from `v7.25.4` to `v7.25.8`.
@@ -76,6 +105,7 @@
   - `typescript-eslint` from `v8.6.0` to `v8.8.1`.
 
 ## 2.2.1 / 2024-09-23
+
 - Update typescript _target_ to `ES2020`.
 - Update _dev_ libs:
   - `@eslint/js` from `v9.10.0` to `v9.11.0`.
